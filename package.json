@@ -1,0 +1,55 @@
+{
+  "name": "react-ui-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "webpack",
+    "start": "cross-env NODE_ENV=development API_HOST=https://reqres.in webpack serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smithjke/react-ui-boilerplate.git"
+  },
+  "author": "smithjke",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/smithjke/react-ui-boilerplate/issues"
+  },
+  "homepage": "https://github.com/smithjke/react-ui-boilerplate#readme",
+  "devDependencies": {
+    "@babel/core": "^7.17.0",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.4",
+    "@types/react": "^18.0.12",
+    "@types/react-dom": "^18.0.5",
+    "@types/react-router-dom": "^5.3.3",
+    "@typescript-eslint/eslint-plugin": "^5.11.0",
+    "@typescript-eslint/parser": "^5.11.0",
+    "babel-loader": "^8.2.3",
+    "copy-webpack-plugin": "^10.2.4",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.8.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "html-webpack-plugin": "^5.5.0",
+    "react-refresh": "^0.13.0",
+    "typescript": "^4.7.3",
+    "webpack": "^5.68.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  },
+  "dependencies": {
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-jss": "^10.9.0",
+    "react-router-dom": "^6.3.0",
+    "rxjs": "^7.5.5"
+  }
+}
