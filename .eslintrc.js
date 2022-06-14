@@ -84,6 +84,7 @@ module.exports = {
     'max-len': ['warn', 120],
     'no-empty-function': ['warn'],
     'no-unused-vars': ['off'],
+    'no-void': ['off'],
     'no-shadow': ['off'],
     'no-plusplus': ['off'],
     'no-unused-expressions': ['off'],

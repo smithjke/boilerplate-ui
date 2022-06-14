@@ -68,7 +68,7 @@ module.exports = {
     historyApiFallback: true,
     hot: true,
     proxy: {
-      '/v1': {
+      '/api': {
         target: API_HOST,
         logLevel: 'debug',
         changeOrigin: true,

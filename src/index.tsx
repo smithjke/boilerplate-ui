@@ -7,7 +7,10 @@ import {
   Navigate,
 } from 'react-router-dom';
 import { App } from '~/app';
-import { UserCrud } from '~/user';
+import { UserCrud, UserService } from '~/user';
+import { registerDependency } from '~/1st-di';
+
+registerDependency('USER_SERVICE', () => new UserService());
 
 const container = document.getElementById('root');
 const root = createRoot(container);

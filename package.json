@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build": "webpack",
-    "start": "cross-env NODE_ENV=development API_HOST=https://reqres.in webpack serve",
+    "start": "cross-env NODE_ENV=development API_HOST=http://localhost:3000 webpack serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -46,6 +46,10 @@
     "webpack-dev-server": "^4.7.4"
   },
   "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/material": "^5.8.4",
+    "@mui/x-data-grid": "^5.12.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-jss": "^10.9.0",
