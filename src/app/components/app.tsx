@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { MuiThemeProvider } from '~/1st-react-ui';
 
 export const App: React.FC<React.PropsWithChildren> = (props) => {
   const [kek, setKek] = useState(1);
@@ -6,8 +7,8 @@ export const App: React.FC<React.PropsWithChildren> = (props) => {
   console.log('kek', kek, setKek);
 
   return (
-    <div>
+    <MuiThemeProvider>
       {props.children}
-    </div>
+    </MuiThemeProvider>
   );
 };
