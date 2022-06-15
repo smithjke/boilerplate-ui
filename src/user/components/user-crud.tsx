@@ -1,12 +1,12 @@
 import React from 'react';
 import {
   Crud,
+  CrudCreate,
   CrudEdit,
   CrudIndex,
   CrudIndexListDataGrid,
 } from '~/1st-react-crud';
 import { useUserService } from '~/user';
-import { CrudCreate } from '~/1st-react-crud/components/crud-create';
 
 export const UserCrud: React.FC = () => {
   const userService = useUserService();
