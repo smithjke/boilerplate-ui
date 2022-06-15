@@ -6,16 +6,18 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import { CrudService } from '~/1st-crud';
 
-export type CrudIndexProps = {
+export type CrudCreateProps = {
   title: string;
-  filters?: JSX.Element;
-  list?: JSX.Element;
+  crudService: CrudService<object>;
 };
 
-export const CrudIndex: React.FC<CrudIndexProps> = (props) => {
+export const CrudCreate: React.FC<CrudCreateProps> = (props) => {
   const navigate = useNavigate();
-  const handleCreateClick = useCallback(() => navigate('create'), []);
+  const handleBackClick = useCallback(() => navigate('..'), []);
+
+  console.log('crudService >>>', props.crudService);
 
   return (
     <Box py={3}>
@@ -33,21 +35,14 @@ export const CrudIndex: React.FC<CrudIndexProps> = (props) => {
           </Typography>
           <Button
             variant={'contained'}
-            onClick={handleCreateClick}
+            onClick={handleBackClick}
           >
-            Add
+            Back
           </Button>
         </Stack>
-        {props.filters && (
-          <div>
-            {props.filters}
-          </div>
-        )}
-        {props.list && (
-          <div>
-            {props.list}
-          </div>
-        )}
+        <div>
+          FORM: create
+        </div>
       </Stack>
     </Box>
   );

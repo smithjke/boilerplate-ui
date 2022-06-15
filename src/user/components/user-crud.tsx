@@ -1,6 +1,12 @@
 import React from 'react';
-import { Crud, CrudIndex, CrudIndexListDataGrid } from '~/1st-react-crud';
+import {
+  Crud,
+  CrudEdit,
+  CrudIndex,
+  CrudIndexListDataGrid,
+} from '~/1st-react-crud';
 import { useUserService } from '~/user';
+import { CrudCreate } from '~/1st-react-crud/components/crud-create';
 
 export const UserCrud: React.FC = () => {
   const userService = useUserService();
@@ -10,6 +16,9 @@ export const UserCrud: React.FC = () => {
       index={(
         <CrudIndex
           title={'Users'}
+          filters={(
+            <div>FILTERS</div>
+          )}
           list={(
             <CrudIndexListDataGrid
               columns={[
@@ -34,8 +43,18 @@ export const UserCrud: React.FC = () => {
           )}
         />
       )}
-      edit={(<div>crud edit</div>)}
-      create={<div>crud create</div>}
+      edit={(
+        <CrudEdit
+          title={'Users Edit'}
+          crudService={userService}
+        />
+      )}
+      create={(
+        <CrudCreate
+          title={'Users Create'}
+          crudService={userService}
+        />
+      )}
     />
   );
 };

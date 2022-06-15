@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
-import { DataGrid, GridColumns } from '@mui/x-data-grid';
+import React, { useCallback } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import {
+  DataGrid,
+  GridActionsCellItem,
+  GridColumns,
+  GridRowParams,
+} from '@mui/x-data-grid';
 import { CrudService } from '~/1st-crud';
 import { usePromise } from '~/1st-react';
 import { ApiListResult } from '~/1st-api';
 
-const defaultRowsPerPageOptions = [3, 20, 50];
+const defaultRowsPerPageOptions = [10, 20, 50];
 const defaultResult: ApiListResult<object> = { list: [], total: 0 };
 
 export type CrudIndexListDataGridProps = {
@@ -18,30 +24,57 @@ type SearchData = {
 };
 
 export const CrudIndexListDataGrid: React.FC<CrudIndexListDataGridProps> = (props) => {
-  // const urlService = useUrlService();
-  // const urlData = useBehaviorSubject(urlService.urlData$);
-  // const searchData = urlService.getSearchData<SearchData>(urlData);
-  const [searchData, setSearchData] = useState<SearchData>({});
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchData: SearchData = {};
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  // eslint-disable-next-line no-restricted-syntax
+  for (const a of searchParams.keys()) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    searchData[a] = searchParams.get(a);
+  }
 
   const { page = 1, size = defaultRowsPerPageOptions[0], ...otherData } = searchData;
 
-  const setPage = (newPage: number) => setSearchData({
+  const setPage = (newPage: number) => setSearchParams({
     ...searchData,
     page: String(newPage + 1),
   });
 
-  const setPageSize = (newPageSize: number) => setSearchData({
+  const setPageSize = (newPageSize: number) => setSearchParams({
     ...searchData,
     size: String(newPageSize),
   });
 
-  const data = usePromise(() => props.crudService.list({
+  const response = usePromise(() => props.crudService.list({
     ...otherData,
     limit: Number(size),
     skip: (Number(page) - 1) * Number(size),
-  }), [searchData]);
+  }), [searchParams]);
 
-  const { result = defaultResult } = data;
+  const { result = defaultResult } = response;
+
+  const getActions = useCallback((params: GridRowParams) => [
+    <GridActionsCellItem
+      icon={<div>@</div>}
+      onClick={() => navigate(`${params.id}`)}
+      label={'Edit'}
+      showInMenu={false}
+    />,
+  ], [navigate]);
+
+  const columns = [
+    ...props.columns,
+    {
+      field: 'actions',
+      type: 'actions',
+      width: 50,
+      getActions,
+    },
+  ];
 
   return (
     <div
@@ -58,15 +91,15 @@ export const CrudIndexListDataGrid: React.FC<CrudIndexListDataGridProps> = (prop
         disableSelectionOnClick
         paginationMode={'server'}
         sortingMode={'server'}
-        columns={props.columns}
-        loading={data.loading}
+        columns={columns}
+        loading={response.loading}
         rowsPerPageOptions={defaultRowsPerPageOptions}
         rows={result.list}
         rowCount={result.total}
         page={Number(page) - 1}
         pageSize={Number(size)}
-        onPageChange={(a) => !data.loading && setPage(a)}
-        onPageSizeChange={(a) => !data.loading && setPageSize(a)}
+        onPageChange={(a) => !response.loading && setPage(a)}
+        onPageSizeChange={(a) => !response.loading && setPageSize(a)}
       />
     </div>
   );
