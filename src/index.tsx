@@ -8,9 +8,9 @@ import {
 } from 'react-router-dom';
 import { registerDependency } from '~/1st-di';
 import { LocalStorageRepository } from '~/1st-core';
+import { NotifyService } from '~/1st-react-notify';
 import { App, AppSessionService } from '~/app';
 import { UserCrud, UserService } from '~/user';
-import { NotifyService } from '~/notify';
 
 registerDependency('STORAGE_REPOSITORY', () => new LocalStorageRepository());
 registerDependency('NOTIFY_SERVICE', () => new NotifyService());

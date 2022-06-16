@@ -1,6 +1,6 @@
 import { SessionService } from '~/1st-react-session';
+import { useNotifyService } from '~/1st-react-notify';
 import { appApi } from '~/app';
-import { NotifyType, useNotifyService } from '~/notify';
 
 export class AppSessionService extends SessionService<string> {
   notifyService = useNotifyService();
@@ -36,6 +36,11 @@ export class AppSessionService extends SessionService<string> {
       })
         .then((res) => {
           console.log('login res >>>', res);
+          this.notifyService.push({
+            type: 'success',
+            title: 'Auth',
+            body: 'Success',
+          });
           this.currentToken$.next({
             data: res,
             error: null,
@@ -45,8 +50,9 @@ export class AppSessionService extends SessionService<string> {
         .catch((err) => {
           console.log('login err >>>', err);
           this.notifyService.push({
-            type: NotifyType.FAIL,
-            data: 'Incorrect login data',
+            type: 'error',
+            title: 'Auth error',
+            body: 'Incorrect login data',
           });
           this.currentToken$.next({
             data: null,
