@@ -6,11 +6,16 @@ import {
   Routes,
   Navigate,
 } from 'react-router-dom';
-import { App } from '~/app';
-import { UserCrud, UserService } from '~/user';
 import { registerDependency } from '~/1st-di';
+import { LocalStorageRepository } from '~/1st-core';
+import { App, AppSessionService } from '~/app';
+import { UserCrud, UserService } from '~/user';
+import { NotifyService } from '~/notify';
 
+registerDependency('STORAGE_REPOSITORY', () => new LocalStorageRepository());
+registerDependency('NOTIFY_SERVICE', () => new NotifyService());
 registerDependency('USER_SERVICE', () => new UserService());
+registerDependency('SESSION_SERVICE', () => new AppSessionService());
 
 const container = document.getElementById('root');
 const root = createRoot(container);

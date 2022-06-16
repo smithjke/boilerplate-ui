@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { MuiThemeProvider } from '~/1st-react-ui';
+import { AppSession } from './app-session';
+import { NotifyProvider, useNotifyService } from '~/notify';
 
 export const App: React.FC<React.PropsWithChildren> = (props) => {
-  const [kek, setKek] = useState(1);
-
-  console.log('kek', kek, setKek);
+  const notifyService = useNotifyService();
 
   return (
     <MuiThemeProvider>
-      {props.children}
+      <NotifyProvider notifyService={notifyService}>
+        <AppSession>
+          {props.children}
+        </AppSession>
+      </NotifyProvider>
     </MuiThemeProvider>
   );
 };
