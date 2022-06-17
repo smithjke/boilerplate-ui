@@ -1,6 +1,7 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 import { BaseContainer } from './base-container';
+import { TestImages } from './test-images';
 
 const HEADER_HEIGHT = 60;
 
@@ -42,6 +43,7 @@ export const BaseLayout: React.FC<React.PropsWithChildren> = (props) => {
         <div className={styles.BaseLayout__Sidebar}>
           <div className={styles.BaseLayout__UnderHeader}/>
           SIDEBAR
+          <TestImages/>
         </div>
         <div className={styles.BaseLayout__Page}>
           <div className={styles.BaseLayout__UnderHeader}/>
