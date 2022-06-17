@@ -8,9 +8,11 @@ type CurrentData<DATA> = {
 };
 
 export abstract class SessionService<SESSION_DATA = object> {
-  storageKey = 'SESSION_TOKEN';
+  private storageRepository: StorageRepository;
 
-  storageRepository: StorageRepository;
+  protected tokenSaveEnable = true;
+
+  protected storageKey = 'SESSION_TOKEN';
 
   currentToken$: BehaviorSubject<CurrentData<string>>;
 
@@ -33,7 +35,9 @@ export abstract class SessionService<SESSION_DATA = object> {
 
     this.currentToken$.subscribe((token) => {
       if (token.data) {
-        // this.storageRepository.setItem(this.storageKey, token.data);
+        if (this.tokenSaveEnable) {
+          this.storageRepository.setItem(this.storageKey, token.data);
+        }
         this.loadData(token.data);
       } else {
         this.currentSessionData$.next({

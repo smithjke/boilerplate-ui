@@ -1,9 +1,12 @@
 import { SessionService } from '~/1st-react-session';
 import { useNotifyService } from '~/1st-react-notify';
-import { appApi } from '~/app';
+import { appApi } from '../app-api';
+import { appConfig } from '../common';
 
 export class AppSessionService extends SessionService<string> {
-  notifyService = useNotifyService();
+  private notifyService = useNotifyService();
+
+  protected tokenSaveEnable = appConfig.sessionTokenSaveEnable;
 
   loadData(token: string): void {
     this.currentSessionData$.next({
