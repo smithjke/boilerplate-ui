@@ -30,6 +30,9 @@ export abstract class SessionService<SESSION_DATA = object> {
         }
         this.loadData(token.data);
       } else {
+        if (this.tokenSaveEnable) {
+          this.storageRepository.removeItem(this.storageKey);
+        }
         this.currentSessionData$.next(makeAsyncData(null));
       }
     });

@@ -6,19 +6,29 @@ import { useNotifyService } from '../di';
 
 const useStyles = createUseStyles({
   NotifyProvider: {
+    pointerEvents: 'none',
     position: 'fixed',
-    right: 0,
     top: 0,
-    padding: '30px 30px 0 0',
+    left: 0,
+    bottom: 0,
+    width: 300,
   },
   NotifyProvider__List: {
+    overflow: 'hidden',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
     margin: 0,
     padding: 0,
     listStyle: 'none',
+    display: 'flex',
+    flexDirection: 'column-reverse',
   },
   NotifyProvider__ListItem: {
-    marginBottom: 20,
-    width: 320,
+    pointerEvents: 'auto',
+    padding: '0 20px 20px 20px',
   },
 });
 

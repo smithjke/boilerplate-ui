@@ -30,7 +30,6 @@ export const SessionLoginForm: React.FC<SessionLoginFormProps> = (props) => {
     mode: 'onChange',
     reValidateMode: 'onChange',
   });
-  console.log('fff >>>', form.formState.isSubmitting);
 
   return (
     <form

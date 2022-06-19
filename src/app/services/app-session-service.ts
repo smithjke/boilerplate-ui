@@ -1,5 +1,5 @@
 import { skip } from 'rxjs';
-import { useStorageRepository } from '~/1st-core';
+import { makeAsyncData, useStorageRepository } from '~/1st-core';
 import { SessionService } from '~/1st-react-session';
 import { useNotifyService } from '~/1st-react-notify';
 import { callAsyncData } from '~/1st-react-rxjs';
@@ -57,5 +57,6 @@ export class AppSessionService extends SessionService<AuthInitResult> {
 
   logout(): void {
     console.log('AppSessionService logout');
+    this.currentToken$.next(makeAsyncData(null));
   }
 }

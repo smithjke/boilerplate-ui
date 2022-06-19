@@ -6,6 +6,10 @@ import { TestDecorator } from './test-decorator';
 
 const HEADER_HEIGHT = 60;
 
+export type BaseLayoutProps = {
+  header: React.ReactNode;
+};
+
 const useStyles = createUseStyles({
   BaseLayout: {},
   BaseLayout__UnderHeader: {
@@ -18,7 +22,7 @@ const useStyles = createUseStyles({
     left: 0,
     right: 0,
     height: HEADER_HEIGHT,
-    boxShadow: '0 1px 0 0 rgba(0, 0, 0, 0.1)',
+    boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
   },
   BaseLayout__Body: {
     display: 'flex',
@@ -35,7 +39,7 @@ const useStyles = createUseStyles({
   BaseLayout__Footer: {},
 });
 
-export const BaseLayout: React.FC<React.PropsWithChildren> = (props) => {
+export const BaseLayout: React.FC<React.PropsWithChildren<BaseLayoutProps>> = (props) => {
   const styles = useStyles();
 
   return (
@@ -58,7 +62,7 @@ export const BaseLayout: React.FC<React.PropsWithChildren> = (props) => {
         </div>
       </div>
       <div className={styles.BaseLayout__Header}>
-        HEADER
+        {props.header}
       </div>
     </div>
   );
