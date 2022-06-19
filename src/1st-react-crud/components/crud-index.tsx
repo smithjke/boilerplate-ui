@@ -9,6 +9,7 @@ import {
 
 export type CrudIndexProps = {
   title: string;
+  afterTitle?: React.ReactNode;
   filters?: JSX.Element;
   list?: JSX.Element;
 };
@@ -25,12 +26,23 @@ export const CrudIndex: React.FC<CrudIndexProps> = (props) => {
           justifyContent={'space-between'}
           alignItems={'center'}
         >
-          <Typography
-            fontSize={28}
-            fontWeight={700}
+          <Stack
+            direction={'row'}
+            alignItems={'center'}
+            spacing={2}
           >
-            {props.title}
-          </Typography>
+            <Typography
+              fontSize={28}
+              fontWeight={700}
+            >
+              {props.title}
+            </Typography>
+            {props.afterTitle && (
+              <div>
+                {props.afterTitle}
+              </div>
+            )}
+          </Stack>
           <Button
             variant={'contained'}
             onClick={handleCreateClick}

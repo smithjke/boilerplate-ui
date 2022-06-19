@@ -1,4 +1,6 @@
 import React from 'react';
+import { IconButton } from '@mui/material';
+import CachedIcon from '@mui/icons-material/Cached';
 import {
   Crud,
   CrudCreate,
@@ -42,6 +44,11 @@ export const SessionPanelCrud: React.FC = () => {
           index={(
             <CrudIndex
               title={'Sessions'}
+              afterTitle={(
+                <IconButton onClick={() => sessionPanelService.refresh()}>
+                  <CachedIcon/>
+                </IconButton>
+              )}
               filters={(
                 <div>FILTERS</div>
               )}
