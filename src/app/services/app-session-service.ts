@@ -56,7 +56,7 @@ export class AppSessionService extends SessionService<AuthInitResult> {
   }
 
   logout(): void {
-    console.log('AppSessionService logout');
+    // @todo call delete session
     this.currentToken$.next(makeAsyncData(null));
   }
 }

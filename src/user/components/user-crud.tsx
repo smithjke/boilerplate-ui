@@ -4,10 +4,28 @@ import {
   CrudCreate,
   CrudEdit,
   CrudIndex,
-  CrudIndexListDataGrid,
 } from '~/1st-react-crud';
+import { RxjsDataGridCrudIndexList } from '~/1st-react-rxjs-crud';
 import { AppContainer, AppLayout } from '~/app';
 import { useUserService } from '../di';
+
+const userCrudIndexListColumns = [
+  {
+    field: 'id',
+    headerName: '#',
+    flex: 1,
+  },
+  {
+    field: 'name',
+    headerName: 'Name',
+    flex: 1,
+  },
+  {
+    field: 'password',
+    headerName: 'Password',
+    flex: 1,
+  },
+];
 
 export const UserCrud: React.FC = () => {
   const userService = useUserService();
@@ -23,24 +41,8 @@ export const UserCrud: React.FC = () => {
                 <div>FILTERS</div>
               )}
               list={(
-                <CrudIndexListDataGrid
-                  columns={[
-                    {
-                      field: 'id',
-                      headerName: '№',
-                      flex: 1,
-                    },
-                    {
-                      field: 'name',
-                      headerName: 'Name',
-                      flex: 1,
-                    },
-                    {
-                      field: 'password',
-                      headerName: 'Password',
-                      flex: 1,
-                    },
-                  ]}
+                <RxjsDataGridCrudIndexList
+                  columns={userCrudIndexListColumns}
                   crudService={userService}
                 />
               )}
