@@ -66,6 +66,8 @@ export const BaseHeader: React.FC<BaseHeaderProps> = (props) => {
           anchorEl={anchorEl}
           open={open}
           onClose={handleCloseClick}
+          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         >
           {props.avatarMenu?.map((avatarMenuItem) => (
             <MenuItem
