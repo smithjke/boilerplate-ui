@@ -1,37 +1,27 @@
 import { BehaviorSubject } from 'rxjs';
-import { StorageRepository, useStorageRepository } from '~/1st-core';
-
-type CurrentData<DATA> = {
-  data: DATA;
-  error: string;
-  loading: boolean;
-};
+import { AsyncData, makeAsyncData, StorageRepository } from '~/1st-core';
 
 export abstract class SessionService<SESSION_DATA = object> {
   private storageRepository: StorageRepository;
 
-  protected tokenSaveEnable = true;
+  protected tokenSaveEnable: boolean;
 
-  protected storageKey = 'SESSION_TOKEN';
+  protected storageKey: string;
 
-  currentToken$: BehaviorSubject<CurrentData<string>>;
+  currentToken$: BehaviorSubject<AsyncData<string>>;
 
-  currentSessionData$: BehaviorSubject<CurrentData<SESSION_DATA>>;
+  currentSessionData$: BehaviorSubject<AsyncData<SESSION_DATA>>;
 
-  constructor() {
-    this.storageRepository = useStorageRepository();
-
-    this.currentToken$ = new BehaviorSubject({
-      data: this.storageRepository.getItem(this.storageKey),
-      error: null,
-      loading: false,
-    });
-
-    this.currentSessionData$ = new BehaviorSubject({
-      data: null,
-      error: null,
-      loading: false,
-    });
+  protected constructor(
+    storageRepository: StorageRepository,
+    tokenSaveEnable: boolean,
+    storageKey: string,
+  ) {
+    this.storageRepository = storageRepository;
+    this.tokenSaveEnable = tokenSaveEnable;
+    this.storageKey = storageKey;
+    this.currentToken$ = new BehaviorSubject(makeAsyncData(this.storageRepository.getItem(this.storageKey)));
+    this.currentSessionData$ = new BehaviorSubject(makeAsyncData(null));
 
     this.currentToken$.subscribe((token) => {
       if (token.data) {
@@ -40,11 +30,7 @@ export abstract class SessionService<SESSION_DATA = object> {
         }
         this.loadData(token.data);
       } else {
-        this.currentSessionData$.next({
-          data: null,
-          error: null,
-          loading: false,
-        });
+        this.currentSessionData$.next(makeAsyncData(null));
       }
     });
   }

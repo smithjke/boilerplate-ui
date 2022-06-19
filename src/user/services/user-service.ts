@@ -1,7 +1,7 @@
 import { ClientCrudService } from '~/1st-crud';
 import { User } from '~/api';
-import { appApi } from '~/app';
+import { useApi } from '~/app';
 
 export class UserService extends ClientCrudService<User> {
-  protected crudClient = appApi.user;
+  protected crudClient = useApi().user;
 }

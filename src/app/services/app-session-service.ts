@@ -1,69 +1,58 @@
+import { skip } from 'rxjs';
+import { useStorageRepository } from '~/1st-core';
 import { SessionService } from '~/1st-react-session';
 import { useNotifyService } from '~/1st-react-notify';
-import { appApi } from '../app-api';
+import { callAsyncData } from '~/1st-react-rxjs';
+import { AuthInitResult } from '~/api';
 import { appConfig } from '../common';
+import { useApi } from '../api';
 
-export class AppSessionService extends SessionService<string> {
+export class AppSessionService extends SessionService<AuthInitResult> {
   private notifyService = useNotifyService();
 
-  protected tokenSaveEnable = appConfig.sessionTokenSaveEnable;
+  constructor() {
+    super(
+      useStorageRepository(),
+      appConfig.session.tokenSaveEnable,
+      appConfig.session.storageKey,
+    );
+
+    this.currentToken$.pipe(skip(1)).subscribe((currentToken) => {
+      if (currentToken.error) {
+        this.notifyService.push({
+          type: 'error',
+          title: 'Auth error',
+          body: 'Incorrect login data',
+        });
+      } else if (currentToken.data) {
+        this.notifyService.push({
+          type: 'success',
+          title: 'Auth',
+          body: 'Success',
+        });
+      }
+    });
+  }
 
   loadData(token: string): void {
-    this.currentSessionData$.next({
-      data: null,
-      error: null,
-      loading: true,
-    });
-    setTimeout(() => {
-      this.currentSessionData$.next({
-        data: `KEK:${token}`,
-        error: null,
-        loading: false,
-      });
-    }, 2000);
+    callAsyncData(
+      useApi().auth.init({
+        token,
+      }),
+      this.currentSessionData$,
+    );
   }
 
   login(login: string, password: string): void {
-    console.log('AppSessionService login >>>', login, password);
-    this.currentToken$.next({
-      data: null,
-      error: null,
-      loading: true,
-    });
-    setTimeout(() => {
-      appApi.auth.login({
+    callAsyncData(
+      useApi().auth.login({
         data: {
           login,
           password,
         },
-      })
-        .then((res) => {
-          console.log('login res >>>', res);
-          this.notifyService.push({
-            type: 'success',
-            title: 'Auth',
-            body: 'Success',
-          });
-          this.currentToken$.next({
-            data: res,
-            error: null,
-            loading: false,
-          });
-        })
-        .catch((err) => {
-          console.log('login err >>>', err);
-          this.notifyService.push({
-            type: 'error',
-            title: 'Auth error',
-            body: 'Incorrect login data',
-          });
-          this.currentToken$.next({
-            data: null,
-            error: err.message,
-            loading: false,
-          });
-        });
-    }, 2000);
+      }),
+      this.currentToken$,
+    );
   }
 
   logout(): void {

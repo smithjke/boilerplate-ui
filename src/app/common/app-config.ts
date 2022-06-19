@@ -1,3 +1,6 @@
 export const appConfig = {
-  sessionTokenSaveEnable: true,
+  session: {
+    tokenSaveEnable: true,
+    storageKey: 'SESSION_KEY',
+  },
 };
