@@ -1,13 +1,12 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 import { BaseContainer } from './base-container';
-import { TestImages } from './test-images';
-import { TestDecorator } from './test-decorator';
 
 const HEADER_HEIGHT = 60;
 
 export type BaseLayoutProps = {
   header: React.ReactNode;
+  sidebar: React.ReactNode;
 };
 
 const useStyles = createUseStyles({
@@ -29,7 +28,7 @@ const useStyles = createUseStyles({
     flexDirection: 'row',
   },
   BaseLayout__Sidebar: {
-    background: 'rgba(0, 0, 0, 0.1)',
+    background: 'white',
     width: 300,
     minHeight: '100vh',
   },
@@ -47,9 +46,7 @@ export const BaseLayout: React.FC<React.PropsWithChildren<BaseLayoutProps>> = (p
       <div className={styles.BaseLayout__Body}>
         <div className={styles.BaseLayout__Sidebar}>
           <div className={styles.BaseLayout__UnderHeader}/>
-          SIDEBAR
-          <TestImages/>
-          <TestDecorator/>
+          {props.sidebar}
         </div>
         <div className={styles.BaseLayout__Page}>
           <div className={styles.BaseLayout__UnderHeader}/>

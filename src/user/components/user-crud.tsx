@@ -1,4 +1,6 @@
 import React from 'react';
+import { IconButton } from '@mui/material';
+import CachedIcon from '@mui/icons-material/Cached';
 import {
   Crud,
   CrudCreate,
@@ -37,6 +39,11 @@ export const UserCrud: React.FC = () => {
           index={(
             <CrudIndex
               title={'Users'}
+              afterTitle={(
+                <IconButton onClick={() => userService.refresh()}>
+                  <CachedIcon/>
+                </IconButton>
+              )}
               filters={(
                 <div>FILTERS</div>
               )}
