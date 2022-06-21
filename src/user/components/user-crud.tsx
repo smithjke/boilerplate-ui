@@ -4,10 +4,10 @@ import CachedIcon from '@mui/icons-material/Cached';
 import {
   Crud,
   CrudCreate,
-  CrudEdit,
+  CrudEditPage,
   CrudIndex,
 } from '~/1st-react-crud';
-import { RxjsDataGridCrudIndexList } from '~/1st-react-rxjs-crud';
+import { RxjsCrudEdit, RxjsDataGridCrudIndexList } from '~/1st-react-rxjs-crud';
 import { AppContainer, AppLayout } from '~/app';
 import { useUserService } from '../di';
 
@@ -56,10 +56,20 @@ export const UserCrud: React.FC = () => {
             />
           )}
           edit={(
-            <CrudEdit
-              title={'Users Edit'}
-              crudService={userService}
-            />
+            <RxjsCrudEdit
+              rxjsCrudService={userService}
+            >
+              {(asyncData) => (
+                <CrudEditPage
+                  title={'Users Edit'}
+                  asyncData={asyncData}
+                >
+                  <div>
+                    USER FORM: {JSON.stringify(asyncData.data)}
+                  </div>
+                </CrudEditPage>
+              )}
+            </RxjsCrudEdit>
           )}
           create={(
             <CrudCreate

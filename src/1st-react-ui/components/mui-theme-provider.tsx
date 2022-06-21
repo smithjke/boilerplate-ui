@@ -18,8 +18,8 @@ export const MuiThemeProvider: React.FC<React.PropsWithChildren> = (props) => (
         img: { display: 'block', maxWidth: '100%' },
         svg: { display: 'block' },
         body: {
-          backgroundColor: '#E9ECEF',
-          color: '#232D42',
+          backgroundColor: '#e0e5ea',
+          color: '#333333',
           margin: 0,
           padding: 0,
         },

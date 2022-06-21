@@ -52,11 +52,11 @@ export const RxjsDataGridCrudIndexList: React.FC<RxjsDataGridCrudIndexListProps>
   const asyncData = useBehaviorSubject(props.crudService.cachedList(query), [searchParams]);
   const result = asyncData.data ?? defaultResult;
 
-  console.log('RxjsDataGridCrudIndexList columns >>>', props.columns);
-  console.log('RxjsDataGridCrudIndexList crudService >>>', props.crudService);
-  console.log('RxjsDataGridCrudIndexList searchData >>>', JSON.stringify(searchData));
   console.log('RxjsDataGridCrudIndexList otherData >>>', otherData);
-  console.log('RxjsDataGridCrudIndexList asyncData >>>', asyncData);
+  // console.log('RxjsDataGridCrudIndexList columns >>>', props.columns);
+  // console.log('RxjsDataGridCrudIndexList crudService >>>', props.crudService);
+  // console.log('RxjsDataGridCrudIndexList searchData >>>', JSON.stringify(searchData));
+  // console.log('RxjsDataGridCrudIndexList asyncData >>>', asyncData);
 
   const setPage = (newPage: number) => setSearchParams({
     ...searchData,

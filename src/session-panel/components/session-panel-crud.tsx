@@ -4,12 +4,13 @@ import CachedIcon from '@mui/icons-material/Cached';
 import {
   Crud,
   CrudCreate,
-  CrudEdit,
+  CrudEditPage,
   CrudIndex,
 } from '~/1st-react-crud';
-import { RxjsDataGridCrudIndexList } from '~/1st-react-rxjs-crud';
+import { RxjsCrudEdit, RxjsDataGridCrudIndexList } from '~/1st-react-rxjs-crud';
 import { AppContainer, AppLayout } from '~/app';
 import { useSessionPanelService } from '../di';
+import { SessionPanelEditForm } from './session-panel-edit-form';
 
 const crudIndexListColumns = [
   {
@@ -61,10 +62,20 @@ export const SessionPanelCrud: React.FC = () => {
             />
           )}
           edit={(
-            <CrudEdit
-              title={'Session Edit'}
-              crudService={sessionPanelService}
-            />
+            <RxjsCrudEdit
+              rxjsCrudService={sessionPanelService}
+            >
+              {(asyncData) => (
+                <CrudEditPage
+                  title={'Session Edit'}
+                  asyncData={asyncData}
+                >
+                  <SessionPanelEditForm
+                    asyncData={asyncData}
+                  />
+                </CrudEditPage>
+              )}
+            </RxjsCrudEdit>
           )}
           create={(
             <CrudCreate
