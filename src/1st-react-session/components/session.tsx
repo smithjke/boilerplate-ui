@@ -21,6 +21,7 @@ export const Session: React.FC<React.PropsWithChildren> = (props) => {
   }
 
   if (currentSessionData?.error) {
+    // @todo throw error
     return (
       <div>
         ERROR: {currentSessionData.error}

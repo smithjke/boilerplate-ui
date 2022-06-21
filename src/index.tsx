@@ -30,6 +30,7 @@ root.render((
         <Route path={'/'} element={<Navigate to={'/user'} replace/>}/>
         <Route path={'/user/*'} element={<UserCrud/>}/>
         <Route path={'/session/*'} element={<SessionPanelCrud/>}/>
+        <Route path={'*'} element={<>404</>}/>
       </Routes>
     </BrowserRouter>
   </App>
