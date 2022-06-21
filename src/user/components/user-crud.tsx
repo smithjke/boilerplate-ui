@@ -7,11 +7,16 @@ import {
   CrudEditPage,
   CrudIndex,
 } from '~/1st-react-crud';
-import { RxjsCrudEdit, RxjsDataGridCrudIndexList } from '~/1st-react-rxjs-crud';
+import {
+  RxjsCrudEdit,
+  RxjsCrudEditForm,
+  RxjsCrudEditFormField,
+  RxjsDataGridCrudIndexList
+} from '~/1st-react-rxjs-crud';
 import { AppContainer, AppLayout } from '~/app';
 import { useUserService } from '../di';
 
-const userCrudIndexListColumns = [
+const crudIndexListColumns = [
   {
     field: 'id',
     headerName: '#',
@@ -26,6 +31,17 @@ const userCrudIndexListColumns = [
     field: 'password',
     headerName: 'Password',
     flex: 1,
+  },
+];
+
+const crudEditFormFields: Array<RxjsCrudEditFormField> = [
+  {
+    name: 'name',
+    title: 'Name',
+  },
+  {
+    name: 'password',
+    title: 'Password',
   },
 ];
 
@@ -49,7 +65,7 @@ export const UserCrud: React.FC = () => {
               )}
               list={(
                 <RxjsDataGridCrudIndexList
-                  columns={userCrudIndexListColumns}
+                  columns={crudIndexListColumns}
                   crudService={userService}
                 />
               )}
@@ -64,9 +80,11 @@ export const UserCrud: React.FC = () => {
                   title={'Users Edit'}
                   asyncData={asyncData}
                 >
-                  <div>
-                    USER FORM: {JSON.stringify(asyncData.data)}
-                  </div>
+                  <RxjsCrudEditForm
+                    fields={crudEditFormFields}
+                    asyncData={asyncData}
+                    rxjsCrudService={userService}
+                  />
                 </CrudEditPage>
               )}
             </RxjsCrudEdit>
@@ -74,8 +92,12 @@ export const UserCrud: React.FC = () => {
           create={(
             <CrudCreate
               title={'Users Create'}
-              crudService={userService}
-            />
+            >
+              <RxjsCrudEditForm
+                fields={crudEditFormFields}
+                rxjsCrudService={userService}
+              />
+            </CrudCreate>
           )}
         />
       </AppContainer>

@@ -7,7 +7,12 @@ import {
   CrudEditPage,
   CrudIndex,
 } from '~/1st-react-crud';
-import { RxjsCrudEdit, RxjsDataGridCrudIndexList } from '~/1st-react-rxjs-crud';
+import {
+  RxjsCrudEdit,
+  RxjsCrudEditForm,
+  RxjsCrudEditFormField,
+  RxjsDataGridCrudIndexList
+} from '~/1st-react-rxjs-crud';
 import { AppContainer, AppLayout } from '~/app';
 import { useSessionPanelService } from '../di';
 import { SessionPanelEditForm } from './session-panel-edit-form';
@@ -32,6 +37,21 @@ const crudIndexListColumns = [
     field: 'userId',
     headerName: 'User ID',
     flex: 1,
+  },
+];
+
+const crudEditFormFields: Array<RxjsCrudEditFormField> = [
+  {
+    name: 'token',
+    title: 'Token',
+  },
+  {
+    name: 'ip',
+    title: 'ip',
+  },
+  {
+    name: 'userId',
+    title: 'User ID',
   },
 ];
 
@@ -80,8 +100,12 @@ export const SessionPanelCrud: React.FC = () => {
           create={(
             <CrudCreate
               title={'Session Create'}
-              crudService={sessionPanelService}
-            />
+            >
+              <RxjsCrudEditForm
+                fields={crudEditFormFields}
+                rxjsCrudService={sessionPanelService}
+              />
+            </CrudCreate>
           )}
         />
       </AppContainer>

@@ -6,18 +6,14 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { CrudService } from '~/1st-crud';
 
 export type CrudCreateProps = {
   title: string;
-  crudService: CrudService<object>;
 };
 
-export const CrudCreate: React.FC<CrudCreateProps> = (props) => {
+export const CrudCreate: React.FC<React.PropsWithChildren<CrudCreateProps>> = (props) => {
   const navigate = useNavigate();
   const handleBackClick = useCallback(() => navigate('..'), []);
-
-  console.log('crudService >>>', props.crudService);
 
   return (
     <Box py={3}>
@@ -40,9 +36,7 @@ export const CrudCreate: React.FC<CrudCreateProps> = (props) => {
             Back
           </Button>
         </Stack>
-        <div>
-          FORM: create
-        </div>
+        {props.children}
       </Stack>
     </Box>
   );
