@@ -6,18 +6,18 @@ import { callAsyncData } from '~/1st-react-rxjs';
 import { RxjsCrudService } from '~/1st-react-rxjs-crud';
 
 export abstract class ClientRxjsCrudService<DATA_TYPE> extends ClientCrudService<DATA_TYPE> implements RxjsCrudService {
-  private behaviorSubjectItems: Record<string, BehaviorSubject<AsyncData<Partial<DATA_TYPE>>>> = {};
+  private behaviorSubjectItems: Record<string, BehaviorSubject<AsyncData<DATA_TYPE>>> = {};
 
-  private behaviorSubjectLists: Record<string, BehaviorSubject<AsyncData<ApiListResult<Partial<DATA_TYPE>>>>> = {};
+  private behaviorSubjectLists: Record<string, BehaviorSubject<AsyncData<ApiListResult<DATA_TYPE>>>> = {};
 
-  async cachedCreate(partialData: Partial<DATA_TYPE>): Promise<Partial<DATA_TYPE>> {
+  async cachedCreate(partialData: DATA_TYPE): Promise<DATA_TYPE> {
     const data = await this.create(partialData);
     this.refreshLists();
 
     return data;
   }
 
-  async cachedUpdate(partialData: Partial<DATA_TYPE>, id: string): Promise<Partial<DATA_TYPE>> {
+  async cachedUpdate(partialData: DATA_TYPE, id: string): Promise<DATA_TYPE> {
     const data = await this.update(partialData, id);
     this.behaviorSubjectItems[id].next(makeAsyncData(data));
     this.refreshLists();
@@ -25,7 +25,7 @@ export abstract class ClientRxjsCrudService<DATA_TYPE> extends ClientCrudService
     return data;
   }
 
-  cachedGet(id: string): BehaviorSubject<AsyncData<Partial<DATA_TYPE>>> {
+  cachedGet(id: string): BehaviorSubject<AsyncData<DATA_TYPE>> {
     if (!this.behaviorSubjectItems[id]) {
       this.behaviorSubjectItems[id] = new BehaviorSubject(makeLoadingAsyncData());
       callAsyncData(this.get(id), this.behaviorSubjectItems[id]);
@@ -34,7 +34,7 @@ export abstract class ClientRxjsCrudService<DATA_TYPE> extends ClientCrudService
     return this.behaviorSubjectItems[id];
   }
 
-  cachedList(query: ApiListParams['query']): BehaviorSubject<AsyncData<ApiListResult<Partial<DATA_TYPE>>>> {
+  cachedList(query: ApiListParams['query']): BehaviorSubject<AsyncData<ApiListResult<DATA_TYPE>>> {
     const queryKey = JSON.stringify(query);
 
     if (!this.behaviorSubjectLists[queryKey]) {
