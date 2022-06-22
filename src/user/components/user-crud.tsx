@@ -1,6 +1,8 @@
 import React from 'react';
 import { IconButton } from '@mui/material';
 import CachedIcon from '@mui/icons-material/Cached';
+import { GridColDef } from '@mui/x-data-grid';
+import { dateFormatHuman } from '~/1st-core';
 import {
   Crud,
   CrudCreate,
@@ -11,12 +13,13 @@ import {
   RxjsCrudEdit,
   RxjsCrudEditForm,
   RxjsCrudEditFormField,
-  RxjsDataGridCrudIndexList
+  RxjsDataGridCrudIndexList,
 } from '~/1st-react-rxjs-crud';
+import { User } from '~/api';
 import { AppContainer, AppLayout } from '~/app';
 import { useUserService } from '../di';
 
-const crudIndexListColumns = [
+const crudIndexListColumns: Array<GridColDef<User>> = [
   {
     field: 'id',
     headerName: '#',
@@ -31,6 +34,18 @@ const crudIndexListColumns = [
     field: 'password',
     headerName: 'Password',
     flex: 1,
+  },
+  {
+    field: 'createdAt',
+    headerName: 'Created',
+    flex: 1,
+    valueGetter: (params) => dateFormatHuman(params.value),
+  },
+  {
+    field: 'updatedAt',
+    headerName: 'Updated',
+    flex: 1,
+    valueGetter: (params) => dateFormatHuman(params.value),
   },
 ];
 

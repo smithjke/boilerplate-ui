@@ -10,7 +10,7 @@ import {
 export class AuthClient extends RestClient {
   protected url = '/api';
 
-  login(params: ApiParams<Partial<AuthLoginData>>): Promise<string> {
+  login(params: ApiParams<AuthLoginData>): Promise<string> {
     return this.fetchText({
       method: 'post',
       endpoint: '/auth/login',

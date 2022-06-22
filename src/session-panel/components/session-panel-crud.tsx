@@ -1,6 +1,8 @@
 import React from 'react';
 import { IconButton } from '@mui/material';
+import { GridColDef } from '@mui/x-data-grid';
 import CachedIcon from '@mui/icons-material/Cached';
+import { dateFormatHuman } from '~/1st-core';
 import {
   Crud,
   CrudCreate,
@@ -13,19 +15,25 @@ import {
   RxjsCrudEditFormField,
   RxjsDataGridCrudIndexList
 } from '~/1st-react-rxjs-crud';
+import { Session } from '~/api';
 import { AppContainer, AppLayout } from '~/app';
 import { useSessionPanelService } from '../di';
 import { SessionPanelEditForm } from './session-panel-edit-form';
 
-const crudIndexListColumns = [
-  {
-    field: 'id',
-    headerName: '#',
-    flex: 1,
-  },
+const crudIndexListColumns: Array<GridColDef<Session>> = [
+  // {
+  //   field: 'id',
+  //   headerName: '#',
+  //   flex: 1,
+  // },
   {
     field: 'token',
     headerName: 'Token',
+    flex: 1,
+  },
+  {
+    field: 'userId',
+    headerName: 'User ID',
     flex: 1,
   },
   {
@@ -34,9 +42,16 @@ const crudIndexListColumns = [
     flex: 1,
   },
   {
-    field: 'userId',
-    headerName: 'User ID',
+    field: 'createdAt',
+    headerName: 'Created',
     flex: 1,
+    valueGetter: (params) => dateFormatHuman(params.value),
+  },
+  {
+    field: 'updatedAt',
+    headerName: 'Updated',
+    flex: 1,
+    valueGetter: (params) => dateFormatHuman(params.value),
   },
 ];
 
