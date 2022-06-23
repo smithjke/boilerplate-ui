@@ -13,7 +13,7 @@ import {
   RxjsCrudEdit,
   RxjsCrudEditForm,
   RxjsCrudEditFormField,
-  RxjsDataGridCrudIndexList
+  RxjsDataGridCrudIndexList,
 } from '~/1st-react-rxjs-crud';
 import { Session } from '~/api';
 import { AppContainer, AppLayout } from '~/app';

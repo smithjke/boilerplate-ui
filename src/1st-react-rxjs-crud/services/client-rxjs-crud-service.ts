@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 import { AsyncData, makeAsyncData, makeLoadingAsyncData } from '~/1st-core';
-import { ApiListParams, ApiListResult } from '~/1st-api';
+import { ApiListQuery, ApiListResult } from '~/1st-api';
 import { ClientCrudService } from '~/1st-crud';
 import { callAsyncData } from '~/1st-react-rxjs';
 import { RxjsCrudService } from '~/1st-react-rxjs-crud';
@@ -34,7 +34,7 @@ export abstract class ClientRxjsCrudService<DATA_TYPE> extends ClientCrudService
     return this.behaviorSubjectItems[id];
   }
 
-  cachedList(query: ApiListParams['query']): BehaviorSubject<AsyncData<ApiListResult<DATA_TYPE>>> {
+  cachedList(query: ApiListQuery): BehaviorSubject<AsyncData<ApiListResult<DATA_TYPE>>> {
     const queryKey = JSON.stringify(query);
 
     if (!this.behaviorSubjectLists[queryKey]) {

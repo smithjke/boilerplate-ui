@@ -5,9 +5,10 @@ import {
   GridActionsCellItem,
   GridColumns,
   GridRowParams,
+  GridSortModel,
 } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
-import { ApiListParams, ApiListResult } from '~/1st-api';
+import { ApiListQuery, ApiListResult } from '~/1st-api';
 import { useBehaviorSubject } from '~/1st-react-rxjs';
 import { RxjsCrudService } from '../services';
 
@@ -22,6 +23,8 @@ export type RxjsDataGridCrudIndexListProps = {
 type SearchData = {
   page?: string;
   size?: string;
+  sort?: string;
+  direction?: 'asc' | 'desc';
 };
 
 export const RxjsDataGridCrudIndexList: React.FC<RxjsDataGridCrudIndexListProps> = (props) => {
@@ -41,13 +44,20 @@ export const RxjsDataGridCrudIndexList: React.FC<RxjsDataGridCrudIndexListProps>
   const {
     page = 1,
     size = defaultRowsPerPageOptions[0],
+    sort,
+    direction,
     ...otherData
   } = searchData;
 
-  const query: ApiListParams['query'] = {
+  const query: ApiListQuery = {
     limit: Number(size),
     skip: (Number(page) - 1) * Number(size),
   };
+
+  if (sort && direction) {
+    query.sort = String(sort);
+    query.direction = direction === 'asc' ? 'asc' : 'desc';
+  }
 
   const asyncData = useBehaviorSubject(props.crudService.cachedList(query), [searchParams]);
   const result = asyncData.data ?? defaultResult;
@@ -67,6 +77,23 @@ export const RxjsDataGridCrudIndexList: React.FC<RxjsDataGridCrudIndexListProps>
     ...searchData,
     size: String(newPageSize),
   });
+
+  const setSortModel = (newSortModel: GridSortModel) => {
+    if (newSortModel.length) {
+      setSearchParams({
+        ...searchData,
+        page: '1',
+        sort: String(newSortModel[0].field),
+        direction: String(newSortModel[0].sort),
+      });
+    } else {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { sort: _sort, direction: _direction, ...other } = searchData;
+      setSearchParams({ ...other, page: '1' });
+    }
+  };
+
+  const sortModel = sort ? [{ field: sort, sort: direction }] : [];
 
   const getActions = useCallback((params: GridRowParams) => [
     <GridActionsCellItem
@@ -109,8 +136,10 @@ export const RxjsDataGridCrudIndexList: React.FC<RxjsDataGridCrudIndexListProps>
         rowCount={result.total}
         page={Number(page) - 1}
         pageSize={Number(size)}
+        sortModel={sortModel}
         onPageChange={(a) => !asyncData.loading && setPage(a)}
         onPageSizeChange={(a) => !asyncData.loading && setPageSize(a)}
+        onSortModelChange={(a) => !asyncData.loading && setSortModel(a)}
       />
     </div>
   );
