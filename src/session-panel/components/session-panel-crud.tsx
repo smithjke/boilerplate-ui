@@ -18,7 +18,6 @@ import {
 import { Session } from '~/api';
 import { AppContainer, AppLayout } from '~/app';
 import { useSessionPanelService } from '../di';
-import { SessionPanelEditForm } from './session-panel-edit-form';
 
 const crudIndexListColumns: Array<GridColDef<Session>> = [
   // {
@@ -38,7 +37,7 @@ const crudIndexListColumns: Array<GridColDef<Session>> = [
   },
   {
     field: 'ip',
-    headerName: 'ip',
+    headerName: 'IP',
     flex: 1,
   },
   {
@@ -62,7 +61,7 @@ const crudEditFormFields: Array<RxjsCrudEditFormField> = [
   },
   {
     name: 'ip',
-    title: 'ip',
+    title: 'IP',
   },
   {
     name: 'userId',
@@ -105,7 +104,9 @@ export const SessionPanelCrud: React.FC = () => {
                   title={'Session Edit'}
                   asyncData={asyncData}
                 >
-                  <SessionPanelEditForm
+                  <RxjsCrudEditForm
+                    fields={crudEditFormFields}
+                    rxjsCrudService={sessionPanelService}
                     asyncData={asyncData}
                   />
                 </CrudEditPage>

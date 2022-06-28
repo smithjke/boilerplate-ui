@@ -13,12 +13,13 @@ import * as yup from 'yup';
 import { AsyncData } from '~/1st-core';
 import { RxjsCrudService } from '../services';
 
-export type RxjsCrudEditFormFieldType = 'text' | 'number';
+export type RxjsCrudEditFormFieldType = 'text' | 'number' | 'node';
 
 export type RxjsCrudEditFormField = {
   name: string;
   title?: string;
   type?: RxjsCrudEditFormFieldType;
+  node?: (form: UseFormReturn) => React.ReactNode;
 };
 
 export type RxjsCrudEditFormProps = {
@@ -34,6 +35,7 @@ const type2schema: Record<RxjsCrudEditFormFieldType, any> = {
     .required(),
   number: yup.number()
     .required(),
+  node: null,
 };
 
 const type2input: Record<RxjsCrudEditFormFieldType, (form: UseFormReturn, field: RxjsCrudEditFormField) => React.ReactNode> = {
@@ -90,6 +92,7 @@ const type2input: Record<RxjsCrudEditFormFieldType, (form: UseFormReturn, field:
       )}
     />
   ),
+  node: (form, field) => field.node(form),
 };
 
 export const RxjsCrudEditForm: React.FC<RxjsCrudEditFormProps> = (props) => {
