@@ -1,8 +1,8 @@
 import { useStorageRepository } from '~/1st-core';
-import { UserRestClient } from '~/api';
+import { RoleRestClient } from '~/api';
 import { appConfig } from '../common';
 
-export class AppUserClient extends UserRestClient {
+export class AppRoleClient extends RoleRestClient {
   protected transformHeaders(headers: HeadersInit): HeadersInit {
     return {
       ...headers,

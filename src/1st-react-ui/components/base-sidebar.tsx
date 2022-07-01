@@ -27,8 +27,9 @@ export const BaseSidebar: React.FC<BaseSidebarProps> = (props) => {
           <ListItemButton
             selected={listItem.selected}
             onClick={listItem.onClick}
+            sx={{ px: 3 }}
           >
-            <ListItemIcon>
+            <ListItemIcon sx={{ minWidth: 48 }}>
               {listItem.icon}
             </ListItemIcon>
             <ListItemText>
