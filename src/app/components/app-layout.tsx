@@ -6,6 +6,7 @@ import FingerprintIcon from '@mui/icons-material/Fingerprint';
 import { BaseHeader, BaseLayout, BaseSidebar } from '~/1st-react-ui';
 import { useBehaviorSubject } from '~/1st-react-rxjs';
 import { useAppSessionService } from '../di';
+import { colorFromString } from '../utils';
 
 export const AppLayout: React.FC<React.PropsWithChildren> = (props) => {
   const navigate = useNavigate();
@@ -20,6 +21,7 @@ export const AppLayout: React.FC<React.PropsWithChildren> = (props) => {
       header={(
         <BaseHeader
           avatarSymbol={sessionData.data?.user?.name[0]?.toUpperCase()}
+          avatarColor={sessionData.data?.user?.id && colorFromString(sessionData.data?.user?.id)}
           avatarMenu={[
             {
               title: 'Logout',

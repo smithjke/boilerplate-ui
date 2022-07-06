@@ -18,6 +18,7 @@ export type RxjsCrudEditFormFieldType = 'text' | 'number' | 'node';
 export type RxjsCrudEditFormField = {
   name: string;
   title?: string;
+  optional?: boolean;
   type?: RxjsCrudEditFormFieldType;
   node?: (form: UseFormReturn) => React.ReactNode;
 };
@@ -29,14 +30,27 @@ export type RxjsCrudEditFormProps = {
   maxWidth?: number;
 };
 
-const type2schema: Record<RxjsCrudEditFormFieldType, any> = {
-  text: yup.string()
-    .trim()
-    .required(),
-  number: yup.number()
-    .required(),
-  node: null,
-};
+function makeValidation(field: RxjsCrudEditFormField): any {
+  if (field.type === 'text' || !field.type) {
+    if (field.optional) {
+      return yup.string()
+        .trim();
+    }
+    return yup.string()
+      .trim()
+      .required();
+  }
+
+  if (field.type === 'number') {
+    if (field.optional) {
+      return yup.number();
+    }
+    return yup.number()
+      .required();
+  }
+
+  return null;
+}
 
 const type2input: Record<RxjsCrudEditFormFieldType, (form: UseFormReturn, field: RxjsCrudEditFormField) => React.ReactNode> = {
   // text: (form, field) => (
@@ -103,7 +117,7 @@ export const RxjsCrudEditForm: React.FC<RxjsCrudEditFormProps> = (props) => {
     const record: Record<string, any> = {};
 
     props.fields.forEach((field) => {
-      record[field.name] = type2schema[field.type || 'text'];
+      record[field.name] = makeValidation(field);
     });
 
     return yup.object(record).required();

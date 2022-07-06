@@ -11,6 +11,7 @@ import {
 
 export type BaseHeaderProps = {
   avatarSymbol?: string;
+  avatarColor?: string;
   avatarMenu?: Array<{
     title: string;
     onClick: () => void;
@@ -57,6 +58,7 @@ export const BaseHeader: React.FC<BaseHeaderProps> = (props) => {
             sx={{
               width: 32,
               height: 32,
+              backgroundColor: props.avatarColor,
             }}
           >
             {props.avatarSymbol || '#'}

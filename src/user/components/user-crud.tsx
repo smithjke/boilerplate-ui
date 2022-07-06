@@ -15,7 +15,7 @@ import {
   RxjsCrudEditFormField,
   RxjsDataGridCrudIndexList,
 } from '~/1st-react-rxjs-crud';
-import { User } from '~/api';
+import { Role, User } from '~/api';
 import { AppContainer, AppLayout } from '~/app';
 import { useUserService } from '../di';
 
@@ -31,9 +31,10 @@ const crudIndexListColumns: Array<GridColDef<User>> = [
     flex: 1,
   },
   {
-    field: 'password',
-    headerName: 'Password',
+    field: 'roles',
+    headerName: 'Role',
     flex: 1,
+    valueGetter: (params) => params.value.map((role: Role) => role.name).join(', '),
   },
   {
     field: 'createdAt',
@@ -55,8 +56,9 @@ const crudEditFormFields: Array<RxjsCrudEditFormField> = [
     title: 'Name',
   },
   {
-    name: 'password',
-    title: 'Password',
+    name: 'newPassword',
+    title: 'New password',
+    optional: true,
   },
 ];
 
