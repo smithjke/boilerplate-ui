@@ -7,9 +7,10 @@ import {
   Navigate,
 } from 'react-router-dom';
 import { registerDependency } from '~/1st-di';
-import { LocalStorageRepository } from '~/1st-core';
+import { LocalStorageRepository, useStorageRepository } from '~/1st-core';
 import { NotifyService } from '~/1st-react-notify';
-import { App, AppSessionService } from '~/app';
+import { api } from '~/api';
+import { App, appConfig, AppSessionService } from '~/app';
 import { RoleCrud, RoleService } from '~/role';
 import { SessionPanelCrud, SessionPanelService } from '~/session-panel';
 import { UserCrud, UserService } from '~/user';
@@ -21,6 +22,8 @@ registerDependency('SESSION_SERVICE', () => new AppSessionService());
 registerDependency('ROLE_SERVICE', () => new RoleService());
 registerDependency('SESSION_PANEL_SERVICE', () => new SessionPanelService());
 registerDependency('USER_SERVICE', () => new UserService());
+
+api.setTokenGetter(() => useStorageRepository().getItem(appConfig.session.storageKey));
 
 const container = document.getElementById('root');
 const root = createRoot(container);

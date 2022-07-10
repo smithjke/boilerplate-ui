@@ -3,9 +3,8 @@ import { makeAsyncData, useStorageRepository } from '~/1st-core';
 import { SessionService } from '~/1st-react-session';
 import { useNotifyService } from '~/1st-react-notify';
 import { callAsyncData } from '~/1st-react-rxjs';
-import { AuthInitResult } from '~/api';
+import { api, AuthInitResult } from '~/api';
 import { appConfig } from '../common';
-import { useApi } from '../api';
 
 export class AppSessionService extends SessionService<AuthInitResult> {
   private notifyService = useNotifyService();
@@ -36,7 +35,7 @@ export class AppSessionService extends SessionService<AuthInitResult> {
 
   loadData(token: string): void {
     callAsyncData(
-      useApi().auth.init({
+      api.auth.init({
         token,
       }),
       this.currentSessionData$,
@@ -45,7 +44,7 @@ export class AppSessionService extends SessionService<AuthInitResult> {
 
   login(login: string, password: string): void {
     callAsyncData(
-      useApi().auth.login({
+      api.auth.login({
         data: {
           login,
           password,

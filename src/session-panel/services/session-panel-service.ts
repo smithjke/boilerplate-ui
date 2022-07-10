@@ -1,7 +1,6 @@
 import { ClientRxjsCrudService } from '~/1st-react-rxjs-crud';
-import { Session } from '~/api';
-import { useApi } from '~/app';
+import { api, Session } from '~/api';
 
 export class SessionPanelService extends ClientRxjsCrudService<Session> {
-  protected crudClient = useApi().session;
+  protected crudClient = api.session;
 }

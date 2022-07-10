@@ -1,7 +1,6 @@
 import { ClientRxjsCrudService } from '~/1st-react-rxjs-crud';
-import { Role } from '~/api';
-import { useApi } from '~/app';
+import { api, Role } from '~/api';
 
 export class RoleService extends ClientRxjsCrudService<Role> {
-  protected crudClient = useApi().role;
+  protected crudClient = api.role;
 }
