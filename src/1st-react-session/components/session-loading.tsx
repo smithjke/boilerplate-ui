@@ -1,14 +1,14 @@
 import React from 'react';
 import { Box, CircularProgress } from '@mui/material';
-import { SessionLayout } from './session-layout';
+import { BaseCenterLayout } from '~/1st-react-ui';
 
 export const SessionLoading: React.FC = () => (
-  <SessionLayout>
+  <BaseCenterLayout>
     <Box
       display={'flex'}
       justifyContent={'center'}
     >
       <CircularProgress/>
     </Box>
-  </SessionLayout>
+  </BaseCenterLayout>
 );

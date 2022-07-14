@@ -13,7 +13,7 @@ import { NotifyService } from '~/1st-react-notify';
 import { api } from '~/api';
 import {
   App,
-  appConfig,
+  appConfig, AppNotFound,
   AppSessionService,
   useAppSessionService,
 } from '~/app';
@@ -47,7 +47,7 @@ root.render((
         <Route path={'/session/*'} element={<SessionPanelCrud/>}/>
         <Route path={'/role/*'} element={<RoleCrud/>}/>
         <Route path={'/user/*'} element={<UserCrud/>}/>
-        <Route path={'*'} element={<>404</>}/>
+        <Route path={'*'} element={<AppNotFound/>}/>
       </Routes>
     </BrowserRouter>
   </App>
