@@ -4,7 +4,10 @@ import { SessionLayout } from './session-layout';
 
 export const SessionLoading: React.FC = () => (
   <SessionLayout>
-    <Box display={'flex'} justifyContent={'center'}>
+    <Box
+      display={'flex'}
+      justifyContent={'center'}
+    >
       <CircularProgress/>
     </Box>
   </SessionLayout>

@@ -8,6 +8,7 @@ import {
   GridSortModel,
 } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
+import { Box } from '@mui/material';
 import { ApiListQuery, ApiListResult } from '~/1st-api';
 import { useBehaviorSubject } from '~/1st-react-rxjs';
 import { RxjsCrudService } from '../services';
@@ -115,11 +116,11 @@ export const RxjsDataGridCrudIndexList: React.FC<RxjsDataGridCrudIndexListProps>
   ];
 
   return (
-    <div
-      style={{
-        background: 'white',
-        borderRadius: 5,
-      }}
+    <Box
+      sx={(theme) => ({
+        background: theme.palette.background.paper,
+        borderRadius: 1,
+      })}
     >
       <DataGrid
         autoHeight
@@ -141,6 +142,6 @@ export const RxjsDataGridCrudIndexList: React.FC<RxjsDataGridCrudIndexListProps>
         onPageSizeChange={(a) => !asyncData.loading && setPageSize(a)}
         onSortModelChange={(a) => !asyncData.loading && setSortModel(a)}
       />
-    </div>
+    </Box>
   );
 };

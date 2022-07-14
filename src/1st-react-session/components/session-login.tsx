@@ -15,7 +15,6 @@ export const SessionLogin: React.FC = () => {
   const currentToken = useBehaviorSubject(sessionService.currentToken$);
 
   const onSubmit = (data: SessionLoginFormData) => {
-    console.log('SUBMIT SessionLoginFormData >>>', data);
     sessionService.login(data.login, data.password);
   };
 
