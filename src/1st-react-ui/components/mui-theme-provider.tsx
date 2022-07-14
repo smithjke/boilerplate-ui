@@ -30,7 +30,7 @@ export const darkTheme = createTheme({
 });
 
 export const MuiThemeProvider: React.FC<React.PropsWithChildren> = (props) => (
-  <ThemeProvider theme={darkTheme}>
+  <ThemeProvider theme={lightTheme}>
     <GlobalStyles
       styles={(theme) => ({
         img: { display: 'block', maxWidth: '100%' },
