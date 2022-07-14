@@ -11,11 +11,15 @@ import { LocalStorageRepository, useStorageRepository } from '~/1st-core';
 import { ApiError, ApiErrorCode } from '~/1st-api';
 import { NotifyService } from '~/1st-react-notify';
 import { api } from '~/api';
-import { App, appConfig, AppSessionService } from '~/app';
+import {
+  App,
+  appConfig,
+  AppSessionService,
+  useAppSessionService,
+} from '~/app';
 import { RoleCrud, RoleService } from '~/role';
 import { SessionPanelCrud, SessionPanelService } from '~/session-panel';
 import { UserCrud, UserService } from '~/user';
-import { useAppSessionService } from '~/app/di';
 
 registerDependency('STORAGE_REPOSITORY', () => new LocalStorageRepository());
 registerDependency('NOTIFY_SERVICE', () => new NotifyService());
