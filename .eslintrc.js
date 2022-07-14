@@ -39,6 +39,7 @@ module.exports = {
     '@typescript-eslint/no-empty-function': ['warn'],
     '@typescript-eslint/no-unused-vars': ['error'],
     '@typescript-eslint/no-shadow': ['error'],
+    'react/state-in-constructor': ['off'],
     'react/jsx-filename-extension': ['off'],
     'react/jsx-one-expression-per-line': ['off'],
     'react/jsx-tag-spacing': ['error', {

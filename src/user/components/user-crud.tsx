@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IconButton } from '@mui/material';
 import CachedIcon from '@mui/icons-material/Cached';
 import { GridColDef } from '@mui/x-data-grid';
@@ -62,6 +62,21 @@ const crudEditFormFields: Array<RxjsCrudEditFormField> = [
   },
 ];
 
+const UserCrudFilters: React.FC = () => {
+  const [counter, setCounter] = useState(1);
+  const inc = () => setCounter(counter + 1);
+
+  if (counter > 5) {
+    throw new Error('Azazaz');
+  }
+
+  return (
+    <div onClick={inc}>
+      FILTERS KEK {counter}
+    </div>
+  );
+};
+
 export const UserCrud: React.FC = () => {
   const userService = useUserService();
 
@@ -78,7 +93,7 @@ export const UserCrud: React.FC = () => {
                 </IconButton>
               )}
               filters={(
-                <div>FILTERS</div>
+                <div><UserCrudFilters/></div>
               )}
               list={(
                 <RxjsDataGridCrudIndexList
